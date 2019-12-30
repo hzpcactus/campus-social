@@ -176,7 +176,7 @@ input[type="submit"],input[type="reset"],a,.w3ls_team_grid1_pos ul li{
 .img1-responsive{
 	display: block;
 	/* background:green; */
-	max-width: 100%;
+	width: 60px;
 	height: 60px;
 }
 .posts-grid-left{

@@ -17,9 +17,9 @@
 					<nav class="link-effect-2" id="link-effect-2">
 						<ul class="nav navbar-nav">
 							<li class="active"><router-link to="./" class="effect-3">首页</router-link></li>
-							<li><a href="javascript:void(0);" class="effect-3" @click="friendsview()">查看好友列表</a></li>
+							<li><router-link to="blog" class="effect-3">查看好友列表</router-link></li>
 							<li>
-							  <a href="javascript:void(0);" class="effect-3" @click="blog()">&nbsp;&nbsp;<el-badge :value="9">动态</el-badge>&nbsp;&nbsp;&nbsp;</a>
+							  <router-link to="blog" class="effect-3">&nbsp;&nbsp;<el-badge :value="9">动态</el-badge>&nbsp;&nbsp;&nbsp;</router-link>
 							</li>
 							<li><a href="javascript:void(0);" class="effect-3" @click="uploading()">上传</a></li>
 							<li class="dropdown">

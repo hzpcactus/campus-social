@@ -29,6 +29,9 @@ ul {
     padding: 0;
     color: #777777;
 }
+input[type=file] {
+    display: none !important;
+}
 
 p,
 ul,
