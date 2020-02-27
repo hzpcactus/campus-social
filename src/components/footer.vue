@@ -29,10 +29,10 @@
 					<h2>联系 <span>我们</span></h2>
 					<ul class="con_inner_text">
 						<li><span class="fa fa-map-marker" aria-hidden="true"></span>黑龙江省哈尔滨市黑龙江大学 <label>
-								C区25栋232、233寝</label></li>
+								C区25栋233寝</label></li>
 						<li><span class="fa fa-envelope-o" aria-hidden="true"></span> <a
 								href="javascript:void(0)">1416860873@qq.com</a></li>
-						<li><span class="fa fa-phone" aria-hidden="true"></span> +1234 567 567</li>
+						<li><span class="fa fa-phone" aria-hidden="true"></span> 13654541253</li>
 					</ul>
 					<ul class="social_agileinfo">
 						<li><a href="#" class="w3_facebook"><i class="fa fa-facebook"></i></a></li>

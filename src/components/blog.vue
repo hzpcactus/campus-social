@@ -1,7 +1,8 @@
 <template>
     <div>
-    <div class="main_section_agile inner" id="home">
-		
+    <div class="main_section_agile inner" id="home" style="text-align:center;">
+	   <el-avatar class="avatar" :src="imgUrl"></el-avatar>
+       <span style="color:white;font-weight:bold;font-size:35px;display:block;margin-top:25px;">{{userName}}</span>
 	</div>
     <!--/w3_short-->
 	<div class="services-breadcrumb">
@@ -78,10 +79,10 @@
 				<div class="col-md-4 event-right wthree-event-right">
 					<div class="event-right1 agileinfo-event-right1">
 						<div class="search1 agileits-search1">
-							<form action="#" method="post">
-								<input type="search" name="Search" placeholder="查找动态相关内容" required="">
-								<input type="submit" value="查找">
-							</form>
+							<!-- <form action="#" method="post"> -->
+								<input type="search" name="Search" placeholder="查找动态相关内容" required="" v-model="sendmsg">
+								<input type="submit" value="查找" @click="send">
+							<!-- </form> -->
 						</div>
 						<!-- <div class="categories w3ls-categories">
 							<h3>Categories</h3>
@@ -96,138 +97,37 @@
 						</div> -->
 						<div class="posts w3l-posts" style="margin: 3em 0;" id="friendstable">
 							<h3 style="float: left;">好友列表</h3>
-							<span class="fa fa-user-plus" title="添加好友" aria-hidden="true" style="float:right;margin-top: 5px;cursor: pointer;" @click="popBox()"></span>
+							<span class="fa fa-user-plus" title="添加好友" aria-hidden="true" style="float:right;margin-top: 5px;cursor: pointer;" @click="popAddBox()"></span>
 							<i class="el-icon-search" title="查找好友" style="float:right;margin-top: 5px;margin-right: 5px;cursor: pointer;" @click="popSearchBox()"></i>
 							<!-- 添加好友 start  -->
-                            <el-dialog title="添加好友" :visible.sync="dialogTableVisible" width="400px" :close-on-click-modal="false">
+                            <el-dialog title="添加好友" :visible.sync="dialogTableVisible" width="400px" :close-on-click-modal="false" @closed="closeDialog">
                             <el-row type="flex" align="middle">
                               <el-col :span="3">
                                 <p>账号:</p>
                               </el-col>
                               <el-col :span="18">
-                                <el-input size="small" v-model="findPerson" placeholder="请输入内容"></el-input>
+                                <el-input size="small" v-model="searchPerson" placeholder="请输入内容" @input="addSearch"></el-input>
                               </el-col>
                               <el-col :span="3" :offset="1">
-                                <el-button size="small" type="primary">查找</el-button>
+                                <el-button size="small" type="primary" @click="addSearch">查找</el-button>
                               </el-col>
                             </el-row>
                            <!-- <div class="dialogDiv">-->
 							  <div class="posts-grids w3-posts-grids" style="overflow:scroll;overflow-x: hidden;overflow-y: scroll;height:480px;">
-								<div class="posts-grid w3-posts-grid blog_hover">
+								<div class="posts-grid w3-posts-grid blog_hover" v-for="item in addSearchList" :key="item.person_account">
 									<div class="posts-grid-left w3-posts-grid-left">
-										<a href="single.html"><img src="../assets/images/g3.jpg" alt=" " class="img1-responsive" /></a>
+									    <img :src="item.person_picture" alt=" " class="img1-responsive" />
 									</div>
 									<div class="posts-grid-right w3-posts-grid-right">
-										<h4><a href="mail.html"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Admin</a></h4>
+										<h4><a href="mail.html"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;{{item.person_account}}</a></h4>
 										<ul class="wthree_blog_events_list">
-											<li><i class="fa fa-calendar" aria-hidden="true"></i>10/7/2017</li>
+											<li :title="item.person_signature"><i class="el-icon-edit" aria-hidden="true"></i>{{item.person_signature.length>10?item.person_signature.substring(0,10)+"...":item.person_signature}}</li>
 											<!-- <li><i class="fa fa-user" aria-hidden="true"></i><a href="single.html">Admin</a></li> -->
 										</ul>
 									</div>
-									<div class="clearfix"> </div>
-								</div>
-								<div class="posts-grid w3-posts-grid">
-									<div class="posts-grid-left w3-posts-grid-left">
-										<a href="single.html"><img src="../assets/images/g6.jpg" alt=" " class="img1-responsive" /></a>
-									</div>
-									<div class="posts-grid-right w3-posts-grid-right">
-										<h4><a href="single.html"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Admin2</a></h4>
-										<ul class="wthree_blog_events_list">
-											<li><i class="fa fa-calendar" aria-hidden="true"></i>12/7/2017</li>
-											<!-- <li><i class="fa fa-user" aria-hidden="true"></i><a href="single.html">Admin</a></li> -->
-										</ul>
-									</div>
-									<div class="clearfix"> </div>
-								</div>
-								<div class="posts-grid w3-posts-grid">
-									<div class="posts-grid-left w3-posts-grid-left">
-										<a href="single.html"><img src="../assets/images/g4.jpg" alt=" " class="img1-responsive" /></a>
-									</div>
-									<div class="posts-grid-right w3-posts-grid-right">
-										<h4><a href="single.html"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Admin3</a></h4>
-										<ul class="wthree_blog_events_list">
-											<li><i class="fa fa-calendar" aria-hidden="true"></i>13/8/2017</li>
-											<!-- <li><i class="fa fa-user" aria-hidden="true"></i><a href="single.html">Admin</a></li> -->
-										</ul>
-									</div>
-									<div class="clearfix"> </div>
-								</div>
-								<div class="posts-grid w3-posts-grid">
-									<div class="posts-grid-left w3-posts-grid-left">
-										<a href="single.html"><img src="../assets/images/g3.jpg" alt=" " class="img1-responsive" /></a>
-									</div>
-									<div class="posts-grid-right w3-posts-grid-right">
-										<h4><a href="mail.html"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Admin4</a></h4>
-										<ul class="wthree_blog_events_list">
-											<li><i class="fa fa-calendar" aria-hidden="true"></i>10/7/2017</li>
-											<!-- <li><i class="fa fa-user" aria-hidden="true"></i><a href="single.html">Admin</a></li> -->
-										</ul>
-									</div>
-									<div class="clearfix"> </div>
-								</div>
-								<div class="posts-grid w3-posts-grid">
-									<div class="posts-grid-left w3-posts-grid-left">
-										<a href="single.html"><img src="../assets/images/g3.jpg" alt=" " class="img1-responsive" /></a>
-									</div>
-									<div class="posts-grid-right w3-posts-grid-right">
-										<h4><a href="mail.html"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Admin</a></h4>
-										<ul class="wthree_blog_events_list">
-											<li><i class="fa fa-calendar" aria-hidden="true"></i>10/7/2017</li>
-											<!-- <li><i class="fa fa-user" aria-hidden="true"></i><a href="single.html">Admin</a></li> -->
-										</ul>
-									</div>
-									<div class="clearfix"> </div>
-								</div>
-								<div class="posts-grid w3-posts-grid">
-									<div class="posts-grid-left w3-posts-grid-left">
-										<a href="single.html"><img src="../assets/images/g3.jpg" alt=" " class="img1-responsive" /></a>
-									</div>
-									<div class="posts-grid-right w3-posts-grid-right">
-										<h4><a href="mail.html"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Admin</a></h4>
-										<ul class="wthree_blog_events_list">
-											<li><i class="fa fa-calendar" aria-hidden="true"></i>10/7/2017</li>
-											<!-- <li><i class="fa fa-user" aria-hidden="true"></i><a href="single.html">Admin</a></li> -->
-										</ul>
-									</div>
-									<div class="clearfix"> </div>
-								</div>
-								<div class="posts-grid w3-posts-grid">
-									<div class="posts-grid-left w3-posts-grid-left">
-										<a href="single.html"><img src="../assets/images/g3.jpg" alt=" " class="img1-responsive" /></a>
-									</div>
-									<div class="posts-grid-right w3-posts-grid-right">
-										<h4><a href="mail.html"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Admin</a></h4>
-										<ul class="wthree_blog_events_list">
-											<li><i class="fa fa-calendar" aria-hidden="true"></i>10/7/2017</li>
-											<!-- <li><i class="fa fa-user" aria-hidden="true"></i><a href="single.html">Admin</a></li> -->
-										</ul>
-									</div>
-									<div class="clearfix"> </div>
-								</div>
-								<div class="posts-grid w3-posts-grid">
-									<div class="posts-grid-left w3-posts-grid-left">
-										<a href="single.html"><img src="../assets/images/g3.jpg" alt=" " class="img1-responsive" /></a>
-									</div>
-									<div class="posts-grid-right w3-posts-grid-right">
-										<h4><a href="mail.html"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Admin</a></h4>
-										<ul class="wthree_blog_events_list">
-											<li><i class="fa fa-calendar" aria-hidden="true"></i>10/7/2017</li>
-											<!-- <li><i class="fa fa-user" aria-hidden="true"></i><a href="single.html">Admin</a></li> -->
-										</ul>
-									</div>
-									<div class="clearfix"> </div>
-								</div>
-								<div class="posts-grid w3-posts-grid">
-									<div class="posts-grid-left w3-posts-grid-left">
-										<a href="single.html"><img src="../assets/images/g3.jpg" alt=" " class="img1-responsive" /></a>
-									</div>
-									<div class="posts-grid-right w3-posts-grid-right">
-										<h4><a href="mail.html"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Admin</a></h4>
-										<ul class="wthree_blog_events_list">
-											<li><i class="fa fa-calendar" aria-hidden="true"></i>10/7/2017</li>
-											<!-- <li><i class="fa fa-user" aria-hidden="true"></i><a href="single.html">Admin</a></li> -->
-										</ul>
-									</div>
+									<el-button icon="el-icon-plus" type="primary" size="mini" circle class="add_button"  v-if="!item.applying" @click="addcontext(item)"></el-button>
+									<span style="font-size:10px" v-if="item.applying">等待验证中...</span>
+									<!-- <i class="el-icon-plus" @click="addcontext(item)" v-if="!item.applying"></i> -->
 									<div class="clearfix"> </div>
 								</div>
 							<!--</div>-->
@@ -240,54 +140,28 @@
                             </el-dialog>
 							<!-- 添加好友 end  -->
 							<!-- 查询好友 start  -->
-							<el-dialog title="查找好友" :visible.sync="searchTableVisible" width="400px" :close-on-click-modal="false">
+							<el-dialog title="查找好友" :visible.sync="searchTableVisible" width="400px" :close-on-click-modal="false" @closed="closeDialog">
                             <el-row type="flex" align="middle">
                               <el-col :span="3">
                                 <p>账号:</p>
                               </el-col>
                               <el-col :span="18">
-                                <el-input size="small" v-model="findPerson" placeholder="请输入内容"></el-input>
+                                <el-input size="small" v-model="findPerson" placeholder="请输入内容" @input="findSearch"></el-input>
                               </el-col>
                               <el-col :span="3" :offset="1">
-                                <el-button size="small" type="primary">查找</el-button>
+                                <el-button size="small" type="primary" @click="findSearch">查找</el-button>
                               </el-col>
                             </el-row>
                            <!-- <div class="dialogDiv">-->
 							  <div class="posts-grids w3-posts-grids" style="overflow:scroll;overflow-x: hidden;overflow-y: scroll;height:480px;">
-								<div class="posts-grid w3-posts-grid blog_hover">
+								<div class="posts-grid w3-posts-grid blog_hover" v-for="item in searchFriendList" :key="item.person_account">
 									<div class="posts-grid-left w3-posts-grid-left">
-										<a href="single.html"><img src="../assets/images/g3.jpg" alt=" " class="img1-responsive" /></a>
+									  <img :src="item.person_picture" alt=" " class="img1-responsive" />
 									</div>
 									<div class="posts-grid-right w3-posts-grid-right">
-										<h4><a href="mail.html"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Admin</a></h4>
+										<h4><a href="mail.html"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;{{item.person_account}}</a></h4>
 										<ul class="wthree_blog_events_list">
-											<li><i class="fa fa-calendar" aria-hidden="true"></i>10/7/2017</li>
-											<!-- <li><i class="fa fa-user" aria-hidden="true"></i><a href="single.html">Admin</a></li> -->
-										</ul>
-									</div>
-									<div class="clearfix"> </div>
-								</div>
-								<div class="posts-grid w3-posts-grid">
-									<div class="posts-grid-left w3-posts-grid-left">
-										<a href="single.html"><img src="../assets/images/g6.jpg" alt=" " class="img1-responsive" /></a>
-									</div>
-									<div class="posts-grid-right w3-posts-grid-right">
-										<h4><a href="single.html"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Admin2</a></h4>
-										<ul class="wthree_blog_events_list">
-											<li><i class="fa fa-calendar" aria-hidden="true"></i>12/7/2017</li>
-											<!-- <li><i class="fa fa-user" aria-hidden="true"></i><a href="single.html">Admin</a></li> -->
-										</ul>
-									</div>
-									<div class="clearfix"> </div>
-								</div>
-								<div class="posts-grid w3-posts-grid">
-									<div class="posts-grid-left w3-posts-grid-left">
-										<a href="single.html"><img src="../assets/images/g4.jpg" alt=" " class="img1-responsive" /></a>
-									</div>
-									<div class="posts-grid-right w3-posts-grid-right">
-										<h4><a href="single.html"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Admin3</a></h4>
-										<ul class="wthree_blog_events_list">
-											<li><i class="fa fa-calendar" aria-hidden="true"></i>13/8/2017</li>
+											<li><i class="el-icon-edit" aria-hidden="true"></i>{{item.person_signature.length>10?item.person_signature.substring(0,10)+"...":item.person_signature}}</li>
 											<!-- <li><i class="fa fa-user" aria-hidden="true"></i><a href="single.html">Admin</a></li> -->
 										</ul>
 									</div>
@@ -302,145 +176,25 @@
                             </div>
                             </el-dialog>
 							<!-- 查询好友 end  -->
-							<div class="posts-grids w3-posts-grids" style="overflow:scroll;overflow-x: hidden;overflow-y: scroll;height:480px;">
-								<div class="posts-grid w3-posts-grid">
+							<div class="posts-grids w3-posts-grids" :style="isHaveFriends">
+								<div class="posts-grid w3-posts-grid" v-show="isShow" v-for="item in friendList" :key="item.person_account">
 									<div class="posts-grid-left w3-posts-grid-left">
-										<a href="single.html"><img src="../assets/images/g3.jpg" alt=" " class="img1-responsive" /></a>
+										<img :src="item.person_picture" alt=" " class="img1-responsive" />
 									</div>
 									<div class="posts-grid-right w3-posts-grid-right">
-										<h4><a href="mail.html"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Admin</a></h4>
+										<h4><a href="mail.html"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;{{item.person_account}}</a></h4>
 										<ul class="wthree_blog_events_list">
-											<li><i class="fa fa-calendar" aria-hidden="true"></i>10/7/2017</li>
+											<li :title="item.person_signature"><i class="el-icon-edit" aria-hidden="true"></i>{{item.person_signature.length>10?item.person_signature.substring(0,10)+"...":item.person_signature}}</li>
 											<!-- <li><i class="fa fa-user" aria-hidden="true"></i><a href="single.html">Admin</a></li> -->
 										</ul>
 									</div>
 									<div class="clearfix"> </div>
 								</div>
-								<div class="posts-grid w3-posts-grid">
-									<div class="posts-grid-left w3-posts-grid-left">
-										<a href="single.html"><img src="../assets/images/g6.jpg" alt=" " class="img1-responsive" /></a>
-									</div>
-									<div class="posts-grid-right w3-posts-grid-right">
-										<h4><a href="single.html"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Admin2</a></h4>
-										<ul class="wthree_blog_events_list">
-											<li><i class="fa fa-calendar" aria-hidden="true"></i>12/7/2017</li>
-											<!-- <li><i class="fa fa-user" aria-hidden="true"></i><a href="single.html">Admin</a></li> -->
-										</ul>
-									</div>
-									<div class="clearfix"> </div>
-								</div>
-								<div class="posts-grid w3-posts-grid">
-									<div class="posts-grid-left w3-posts-grid-left">
-										<a href="single.html"><img src="../assets/images/g4.jpg" alt=" " class="img1-responsive" /></a>
-									</div>
-									<div class="posts-grid-right w3-posts-grid-right">
-										<h4><a href="single.html"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Admin3</a></h4>
-										<ul class="wthree_blog_events_list">
-											<li><i class="fa fa-calendar" aria-hidden="true"></i>13/8/2017</li>
-											<!-- <li><i class="fa fa-user" aria-hidden="true"></i><a href="single.html">Admin</a></li> -->
-										</ul>
-									</div>
-									<div class="clearfix"> </div>
-								</div>
-								<div class="posts-grid w3-posts-grid">
-									<div class="posts-grid-left w3-posts-grid-left">
-										<a href="single.html"><img src="../assets/images/g3.jpg" alt=" " class="img1-responsive" /></a>
-									</div>
-									<div class="posts-grid-right w3-posts-grid-right">
-										<h4><a href="mail.html"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Admin4</a></h4>
-										<ul class="wthree_blog_events_list">
-											<li><i class="fa fa-calendar" aria-hidden="true"></i>10/7/2017</li>
-											<!-- <li><i class="fa fa-user" aria-hidden="true"></i><a href="single.html">Admin</a></li> -->
-										</ul>
-									</div>
-									<div class="clearfix"> </div>
-								</div>
-								<div class="posts-grid w3-posts-grid">
-									<div class="posts-grid-left w3-posts-grid-left">
-										<a href="single.html"><img src="../assets/images/g3.jpg" alt=" " class="img1-responsive" /></a>
-									</div>
-									<div class="posts-grid-right w3-posts-grid-right">
-										<h4><a href="mail.html"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Admin</a></h4>
-										<ul class="wthree_blog_events_list">
-											<li><i class="fa fa-calendar" aria-hidden="true"></i>10/7/2017</li>
-											<!-- <li><i class="fa fa-user" aria-hidden="true"></i><a href="single.html">Admin</a></li> -->
-										</ul>
-									</div>
-									<div class="clearfix"> </div>
-								</div>
-								<div class="posts-grid w3-posts-grid">
-									<div class="posts-grid-left w3-posts-grid-left">
-										<a href="single.html"><img src="../assets/images/g3.jpg" alt=" " class="img1-responsive" /></a>
-									</div>
-									<div class="posts-grid-right w3-posts-grid-right">
-										<h4><a href="mail.html"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Admin</a></h4>
-										<ul class="wthree_blog_events_list">
-											<li><i class="fa fa-calendar" aria-hidden="true"></i>10/7/2017</li>
-											<!-- <li><i class="fa fa-user" aria-hidden="true"></i><a href="single.html">Admin</a></li> -->
-										</ul>
-									</div>
-									<div class="clearfix"> </div>
-								</div>
-								<div class="posts-grid w3-posts-grid">
-									<div class="posts-grid-left w3-posts-grid-left">
-										<a href="single.html"><img src="../assets/images/g3.jpg" alt=" " class="img1-responsive" /></a>
-									</div>
-									<div class="posts-grid-right w3-posts-grid-right">
-										<h4><a href="mail.html"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Admin</a></h4>
-										<ul class="wthree_blog_events_list">
-											<li><i class="fa fa-calendar" aria-hidden="true"></i>10/7/2017</li>
-											<!-- <li><i class="fa fa-user" aria-hidden="true"></i><a href="single.html">Admin</a></li> -->
-										</ul>
-									</div>
-									<div class="clearfix"> </div>
-								</div>
-								<div class="posts-grid w3-posts-grid">
-									<div class="posts-grid-left w3-posts-grid-left">
-										<a href="single.html"><img src="../assets/images/g3.jpg" alt=" " class="img1-responsive" /></a>
-									</div>
-									<div class="posts-grid-right w3-posts-grid-right">
-										<h4><a href="mail.html"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Admin</a></h4>
-										<ul class="wthree_blog_events_list">
-											<li><i class="fa fa-calendar" aria-hidden="true"></i>10/7/2017</li>
-											<!-- <li><i class="fa fa-user" aria-hidden="true"></i><a href="single.html">Admin</a></li> -->
-										</ul>
-									</div>
-									<div class="clearfix"> </div>
-								</div>
-								<div class="posts-grid w3-posts-grid">
-									<div class="posts-grid-left w3-posts-grid-left">
-										<a href="single.html"><img src="../assets/images/g3.jpg" alt=" " class="img1-responsive" /></a>
-									</div>
-									<div class="posts-grid-right w3-posts-grid-right">
-										<h4><a href="mail.html"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Admin</a></h4>
-										<ul class="wthree_blog_events_list">
-											<li><i class="fa fa-calendar" aria-hidden="true"></i>10/7/2017</li>
-											<!-- <li><i class="fa fa-user" aria-hidden="true"></i><a href="single.html">Admin</a></li> -->
-										</ul>
-									</div>
-									<div class="clearfix"> </div>
+								<div v-show="!isShow" class="nofriends">
+									  <i class="el-icon-user">暂无好友</i>
 								</div>
 							</div>
 						</div>
-						<!-- <div class="tags tags1 w3layouts-tags">
-							<h3>Recent Tags</h3>
-							<ul>
-								<li><a href="single.html">Designs</a></li>
-								<li><a href="single.html">Growth</a></li>
-								<li><a href="single.html">Latest</a></li>
-								<li><a href="single.html">Price</a></li>
-								<li><a href="single.html">Tools</a></li>
-								<li><a href="single.html">Agile</a></li>
-								<li><a href="single.html">Category</a></li>
-								<li><a href="single.html">Themes</a></li>
-								<li><a href="single.html">Growth</a></li>
-								<li><a href="single.html">Agile</a></li>
-								<li><a href="single.html">Price</a></li>
-								<li><a href="single.html">Tools</a></li>
-								<li><a href="single.html">Business</a></li>
-								<li><a href="single.html">Category</a></li>
-							</ul>
-						</div> -->
 					</div>
 				</div>
 				<div class="clearfix"> </div>
@@ -454,84 +208,132 @@
 <script>
 import '@/assets/css/blog.css'
 import '@/assets/css/single.css'
+import io from 'socket.io-client'
 export default {
     data() {
         return {
           userName:"用户名",
           dialogTableVisible:false,
 		  searchTableVisible:false,
-          findPerson:"",
-          gridData: [{
-            date: '2016-05-02',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄'
-          }, {
-            date: '2016-05-04',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄'
-          }, {
-            date: '2016-05-01',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄'
-          },{
-            date: '2016-05-04',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄'
-          }, {
-            date: '2016-05-01',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄'
-          },{
-            date: '2016-05-04',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄'
-          }, {
-            date: '2016-05-01',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄'
-          },{
-            date: '2016-05-04',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄'
-          }, {
-            date: '2016-05-01',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄'
-          },{
-            date: '2016-05-04',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄'
-          }, {
-            date: '2016-05-01',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄'
-          },{
-            date: '2016-05-04',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄'
-          }, {
-            date: '2016-05-01',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄'
-          }, {
-            date: '2016-05-03',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄'
-          }],
+		  isShow:false,
+		  isHaveFriends:"display:flex;justify-content:center;height:480px;",
+		  findPerson:"",
+		  personAccount:"",
+		  imgUrl:"",
+		  searchPerson:"",
+		  sendmsg:"",
+		  friendList:[],
+		  searchFriendList:[],
+		  addFriendList:[],
+		  addSearchList:[],
         };
     },
     created() {
 
     },
     mounted() {
-
+	  this.userName =  window.localStorage.getItem("personAccount");
+	  this.imgUrl =window.localStorage.getItem("personPicture");
+	  this.$axios.post("/friends/search",{personAccount:this.userName}).then(res=>{
+		  console.log(res.data);
+		  this.friendList=res.data.msg;
+		  this.searchFriendList=this.friendList;
+		  this.isShow=res.data.msg==null?false:true;
+		  this.isHaveFriends=this.isShow?"overflow:scroll;overflow-x: hidden;overflow-y: scroll;height:480px;":"display:flex;justify-content:center";
+	  });
     },
     methods: {
-      popBox(){
-          this.dialogTableVisible=true;
+      popAddBox(){
+		  this.dialogTableVisible=true;
+		  this.$axios.post("/friends/addSearch",{personAccount:this.userName}).then(res=>{
+			 this.addFriendList=res.data.msg;
+			 this.addSearchList=this.addFriendList;
+		  });
       },
 	  popSearchBox(){
 		  this.searchTableVisible=true;
+	  },
+	  addFriend(item,value){
+		let load=this.$message({
+			type: 'warning',
+			message:"正在发送请求",
+			iconClass:"el-icon-loading",
+			duration:0
+		 });
+		 this.$axios.post("/friends/add",{
+			 personFriend:"'"+item.person_account+"'",
+			 personAccount:window.localStorage.getItem("personAccount")
+		 }).then(res=>{
+			 load.close();
+			 if(res.data.status=="0"){
+				this.$message.success(res.data.msg);
+				var obj={};
+				obj.personApply=window.localStorage.getItem("personAccount");
+				obj.personAccept=item.person_account;
+				obj.sendmsg=value;
+				this.$socket.emit("sendmsg", obj);
+				// var chat = io.connect(`http://localhost:3000/dd`);
+				// chat.on('friendApply', function (data) {
+				// 	console.log(data);
+				// 	// chat.emit('hi!');
+				// });
+			 }else{
+				this.$message.error(res.data.msg);
+			 }
+		 }).then(()=>{
+			this.$axios.post("/friends/addSearch",{personAccount:this.userName}).then(res=>{
+				this.addFriendList=res.data.msg;
+				this.addSearchList=this.addFriendList;
+			});
+		 });
+	  },
+	  addcontext(item){
+        this.$prompt('填写验证信息', '添加好友', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+        }).then(({ value }) => {
+          this.addFriend(item,value);
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '取消输入'
+          });       
+        });
+ 	  },
+	  addSearch(){
+		 this.addSearchList=[];
+		 for(let i=0;i<this.addFriendList.length;i++){
+            if(this.addFriendList[i].person_account.includes(this.searchPerson)){
+              this.addSearchList.push(this.addFriendList[i]);
+			}
+		 }
+		 
+	  },
+	  findSearch(){
+        this.searchFriendList=[];
+		 for(let i=0;i<this.friendList.length;i++){
+            if(this.friendList[i].person_account.includes(this.findPerson)){
+              this.searchFriendList.push(this.friendList[i]);
+			}
+		 }
+	  },
+	  closeDialog(){
+		  this.searchPerson="";
+		  this.findPerson="";
+	  },
+	  send(){
+		//    var chat = io('http://localhost/friendApply');
+		//    chat.emit(`${window.localStorage.getItem('personAccount')}`, `发送信息：${this.sendmsg}`);
+		var obj={};
+		obj.personApply=window.localStorage.getItem("personAccount");
+		obj.personAccept="test1";
+		obj.sendmsg=this.sendmsg;
+		this.$socket.emit("sendmsg", obj);
+		// this.sockets.subscribe(`${window.localStorage.getItem("personAccount")}`, (data) => {
+		// 	this.msg = data.message;
+		// 	console.log(this.msg);
+		// });
+		// this.sockets.unsubscribe(`${window.localStorage.getItem("personAccount")}`);
 	  }
     }
 };
@@ -562,5 +364,21 @@ export default {
 }
 .blog_hover:hover{
   background-color:#eeeeee;
+}
+.avatar{
+     width:120px;
+     height:120px;
+     margin-top:120px;
+}
+.el-icon-plus{
+	cursor: pointer;
+}
+.add_button{
+   margin-right: 28px;
+}
+.nofriends{
+  align-self:center;
+  font-size: 25px;
+  color:#777777;
 }
 </style>

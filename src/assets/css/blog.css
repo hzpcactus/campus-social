@@ -82,7 +82,7 @@ input[type="submit"],input[type="reset"],a,.w3ls_team_grid1_pos ul li{
     text-decoration: none;
     display: block;
     text-align: center;
-	text-transform: capitalize;
+	text-transform: none;
 }
 .event-left1-right h3 a:hover{
 	color:#45A3D6;
@@ -127,7 +127,7 @@ input[type="submit"],input[type="reset"],a,.w3ls_team_grid1_pos ul li{
    color: #00b7f1;
 }
 .event-left1-right h5 a{
-    text-transform: capitalize;
+    text-transform: none;
     font-size: 1.4em;
     color: #212121;
     text-decoration: none;
@@ -181,7 +181,7 @@ input[type="submit"],input[type="reset"],a,.w3ls_team_grid1_pos ul li{
 }
 .posts-grid-left{
 	float:left;
-	width:33%;
+	width:28%;
 }
 .posts-grid-right{
 	/* float:left; */
@@ -214,7 +214,7 @@ input[type="submit"],input[type="reset"],a,.w3ls_team_grid1_pos ul li{
 	height:80px;
 }
 .posts-grid-right h4 a{
-	text-transform: capitalize;
+	text-transform: none;
     font-size: .8em;
     color: #999;
     line-height: 1.8em;

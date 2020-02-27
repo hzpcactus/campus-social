@@ -3,9 +3,11 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import axios from 'axios'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(ElementUI);
+Vue.prototype.$axios = axios;
 
 import $ from 'jquery'
 import 'bootstrap'
@@ -33,11 +35,29 @@ import '@/assets/css/style.css'
 import '@/assets/css/font-awesome.css'
 Vue.config.productionTip = false
 
+import VueSocketIO from 'vue-socket.io'
+  
+Vue.use(new VueSocketIO({
+  debug: true,
+  connection: 'http://localhost:3000',
+  // vuex: {
+  //     store,
+  //     actionPrefix: 'SOCKET_',
+  //     mutationPrefix: 'SOCKET_'
+  // },
+  // options: { path: "/my-app/" } //Optional options
+}))
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
+  // VueSocketIO,
   components: { App },
   template: '<App/>'
+});
+
+router.afterEach((to,from,next) => {
+  window.scrollTo(0,0);
 });
 // Vue.use($)

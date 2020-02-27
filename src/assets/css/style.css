@@ -149,7 +149,7 @@ a:focus {
 .agileits_w3layouts_banner_info h2 {
     font-size: 2em;
     color: #fff;
-    text-transform: capitalize;
+    text-transform: none;
     line-height: 2em;
 }
 
@@ -1158,7 +1158,7 @@ h3.agile_tittle span {
     font-size: 1em;
     color: #7d7d7c;
     margin-bottom: 0.6em;
-    text-transform: capitalize;
+    text-transform: none;
     font-weight: 600;
     letter-spacing: 2px;
 }
@@ -3741,7 +3741,7 @@ ul.w3_short li {
         margin: 1em auto 0;
         width: 82%;
     }
+    
 }
-
 
 /*--//responsive--*/

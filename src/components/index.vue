@@ -433,6 +433,9 @@ export default {
 		pagination: true,
 	  });
 	});
+	// this.$axios.get("/users/",{}).then(res=>{
+	// 	console.log(res);
+	// });
 	// $('.counter').countUp();
 	// var count=Number(document.getElementById("count").innerText);
 	// setInterval(function a(){
