@@ -14,7 +14,6 @@ import Footer from '@/components/footer.vue'
 import Header from '@/components/Header.vue'
 import '@/tools/weather.js'
 import io from 'socket.io-client'
-
 export default {
   name: 'App',
   components:{
@@ -38,17 +37,46 @@ export default {
     // test1(data){console.log(data);}
   },
   created() {
-    // console.log(window.localStorage.getItem("personAccount"));
+    const h = this.$createElement;
     this.sockets.subscribe("getmsg", (data) => {
       // this.msg = data.message;
-      console.log(data);
-      if(data.personAccept==window.localStorage.getItem("personAccount")){
+      console.log(data,data.isYN);
+      if(data.personAccept==window.localStorage.getItem("personAccount")&&data.isYN==undefined){
+        console.log("进来了");
         this.$notify.info({
           title: `${data.personApply}请求加您为好友`,
           dangerouslyUseHTMLString: true,
-          message: `<p>${data.sendmsg||""}</p> <div style="margin-top:15px;"> <button type="button" class="el-button el-button--primary el-button--mini is-round"><!----><!----><span>同意</span></button> <button type="button" class="el-button el-button--danger el-button--mini is-round"><!----><!----><span>拒绝</span></button></div>`,
+          message: h('div',null,[
+                    h('p',null,data.sendmsg||""),
+                    h('div',{style:{marginTop:'15px'}},[
+                      h("el-button",{
+                        'class':{"el-button--mini":true,"is-round":true,"el-button--primary":true},
+                        on:{click:()=>{this.submitApply(data,'Y')}}
+                        },"同意"),
+                      h("el-button",{
+                        'class':{"el-button--mini":true,"is-round":true,"el-button--danger":true},
+                        on:{click:()=>{this.submitApply(data,'N')}}
+                        },"拒绝")])]),
           duration: 0
         });
+      }else{
+        if(data.personApply==window.localStorage.getItem("personAccount")&&data.isYN=="Y"){
+          this.$notify({
+            title: `好友验证通过`,
+            type: 'success',
+            message: `${data.personAccept}已同意您的好友申请`,
+            duration: 0
+          });
+        }
+        if(data.personApply==window.localStorage.getItem("personAccount")&&data.isYN=="N"){
+          this.$notify({
+            title: `好友验证不通过`,
+            type: 'error',
+            message: `${data.personAccept}已拒绝您的好友申请`,
+            duration: 0
+          });
+        }
+        
       }
     });
     // var chat = io('http://localhost/friendApply');
@@ -64,6 +92,21 @@ export default {
     
   },
   mounted(){
+    // const h = this.$createElement;
+    // this.$notify.info({
+    //       title: `dd请求加您为好友`,
+    //       dangerouslyUseHTMLString: true,
+    //       message: h('div',null,[
+    //         h('p',null,"测试测试"),
+    //         h('div',{style:{marginTop:'15px'}},[
+    //           h("el-button",{
+    //             'class':{"el-button--mini":true,"is-round":true,"el-button--primary":true},
+    //             on:{click:this.submitApply}
+    //             },"同意"),
+    //           h("el-button",{
+    //             'class':{"el-button--mini":true,"is-round":true,"el-button--danger":true},on:{click:this.submitApply}},"拒绝")])]),
+    //       duration: 0
+    //     });
     //  this.$socket.open();
     // this.$axios.post("/users",{personAccount:window.localStorage.getItem("personAccount")}).then(res=>{
     //    console.log(res.data);
@@ -89,6 +132,21 @@ export default {
       this.$nextTick(()=>{
         this.islogin=true;
       })
+    },
+    submitApply(data,isYN){
+      console.log(data,isYN);
+      Object.assign(data,{"isYN":isYN});  //{personApply,personAccept,sendmsg}
+      this.$axios.post("/friends/friendsApply",data).then(res=>{
+        if(res.data.status="0"&&res.data.msg=="已同意"){
+          this.$message.success(res.data.msg);
+          this.$socket.emit("sendmsg", data);
+        }else if(res.data.status="0"&&res.data.msg=="已拒绝"){
+          this.$message.error(res.data.msg);
+          this.$socket.emit("sendmsg", data);
+        }else{
+          this.$message.error(res.data.msg);
+        }
+      });
     }
   },
   watch:{
