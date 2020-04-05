@@ -136,6 +136,7 @@
 				
 				<input type="button" value="修改" v-if="!isEdit" @click="change">
 				<input type="button" value="保存" v-if="isEdit" @click="save">
+				<input type="button" value="退出登录" @click="exit">
 		</div>
 		<!-- <div class="clearfix"> </div> -->
           </div>
@@ -291,6 +292,12 @@ import {regionData} from 'element-china-area-data'
       },
       beforeRemove(file, fileList) {
         return this.$confirm(`确定移除 ${ file.name }？`);
+      },
+      exit(){
+        window.localStorage.clear();
+        this.$emit('personAccount', "");
+        this.$router.push({path:"/"});
+        this.$message.success("退出成功！");
       }
    }
  }

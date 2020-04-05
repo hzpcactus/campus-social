@@ -6,8 +6,15 @@ import router from './router'
 import axios from 'axios'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import { emoji } from './utils/emoji.js'
+
+axios.defaults.withCredentials=true;//让ajax携带cookie
+Vue.prototype.emoji = emoji;
 Vue.use(ElementUI);
 Vue.prototype.$axios = axios;
+
+import echarts from 'echarts'
+Vue.prototype.$echarts = echarts
 
 import $ from 'jquery'
 import 'bootstrap'
@@ -20,6 +27,7 @@ import '@/assets/js/responsiveslides.min.js'
 import '@/assets/js/owl.carousel.js'
 // import '@/assets/js/modernizr-2.6.2.min.js'
 import '@/assets/js/jquery.chocolat.js'
+import '@/tools/icon.js'
 
 
 
@@ -36,7 +44,7 @@ import '@/assets/css/font-awesome.css'
 Vue.config.productionTip = false
 
 import VueSocketIO from 'vue-socket.io'
-  
+
 Vue.use(new VueSocketIO({
   debug: true,
   connection: 'http://localhost:3000',

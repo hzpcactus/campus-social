@@ -23,6 +23,7 @@
 							</li>
 							<li><a href="javascript:void(0);" class="effect-3" @click="upload()">上传</a></li>
 							<li><router-link to="notice" class="effect-3">&nbsp;&nbsp;<el-badge :value="16">通知</el-badge>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</router-link></li>
+							<li><router-link to="manager" class="effect-3">管理员权限</router-link></li>
 							<!-- <li class="dropdown">
 								<a href="#" class="dropdown-toggle effect-3" data-toggle="dropdown">操作 <b class="caret"></b></a>
 								<ul class="dropdown-menu agile_short_dropdown">
@@ -54,9 +55,11 @@
 export default {
     data() {
         return {
-          userName:"用户名",
+		  userName:"",
+		  password:"",
 		  isUser:false,
 		  imgUrl:"",
+		  isManager:false
         };
     },
     created() {
@@ -71,6 +74,7 @@ export default {
       if(personAccount&&personPassword){
 		 this.isUser = true;
 		 this.userName = personAccount;
+		 this.password = personPassword;
       }else{
 		 this.isUser=false;
 	  }
@@ -78,8 +82,34 @@ export default {
     methods: {
        toAbout(){
 		   this.$router.push({name:'about'});
+	   },
+	   findManage(){
+		   this.$axios.post("/users/search",{personAccount:this.userName,personPassword:this.password}).then(res=>{
+			 if(res.data.status=="0"){
+				 console.log(res.data.msg.person_ismanage==0?false:true);
+                 this.isManager=res.data.msg.person_ismanage==0?false:true;
+			 }else{
+				 console.log(res.data);
+				 this.isManager=false;
+			 }
+		   })
 	   }
-    }
+	},
+	watch:{
+	  userName(val){
+		console.log("检查管理员权限",this.userName);
+		if(this.userName){
+		//   this.$nextTick(()=>{
+			this.findManage();
+		//   })
+		}else{
+          this.isManager = false;
+		}
+		
+		// this.isManager=this.userName?this.findManage():false;
+		console.log(this.isManager);
+	  }
+	}
 };
 </script>
 

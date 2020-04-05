@@ -1,5 +1,14 @@
 <template>
   <div id="app">
+    <el-backtop :bottom="55">
+     <el-tooltip class="item" effect="dark" content="回到顶部" placement="top-start">
+      <el-button circle>
+        <svg class="icon" aria-hidden="true">
+          <use xlink:href="#icon-huojian"></use>
+        </svg>
+      </el-button>
+     </el-tooltip> 
+    </el-backtop>
     <!--<img src="./assets/logo.png">
     <Index></Index>-->
     <Header v-if="islogin"></Header>
@@ -128,10 +137,13 @@ export default {
   methods: {
     getPersonAccount(val){
       this.islogin=false;
-      this.personAccount=val;
+      if(val!=""){
+        this.personAccount=val;
+      }
       this.$nextTick(()=>{
         this.islogin=true;
       })
+      
     },
     submitApply(data,isYN){
       console.log(data,isYN);
@@ -158,5 +170,8 @@ export default {
 #weather-float-he{
   z-index:3000;
   position: fixed !important;
+}
+.icon{
+  font-size:18px !important;
 }
 </style>

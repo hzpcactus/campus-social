@@ -16,6 +16,22 @@ module.exports = {
       },
       '/friends/*':{
         target:'http://localhost:3000'
+      },
+      '/notice/*':{
+        target:'http://localhost:3000'
+      },
+      '/manage/*':{
+        target:'http://localhost:3000'
+      },
+      '/blog/*':{
+        target:'http://localhost:3000'
+      },
+      '/getClassSchedule':{
+        target: 'http://ssfw2.hlju.edu.cn',
+        changeOrigin: true,
+        pathRewrite : {
+          '^/getClassSchedule' : ''
+        }
       }
 
     },
