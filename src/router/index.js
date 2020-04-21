@@ -17,6 +17,11 @@ import grantPermissions from '@/components/managerPermissions/grantPermissions'
 import dataAnalysis from '@/components/managerPermissions/dataAnalysis'
 import schoolData from '@/components/managerPermissions/schoolData'
 import onlinePersonData from '@/components/managerPermissions/onlinePersonData'
+import chat from '@/components/chat/chat'
+import friendChat from  '@/components/chat/friendChat'
+import collection from  '@/components/chat/collection'  
+import fileChat from  '@/components/chat/fileChat'  
+import groupChat from  '@/components/chat/groupChat'  
 
 
 Vue.use(Router)
@@ -153,7 +158,49 @@ export default new Router({
         title:'动态背景'
       },
       component: blogTheme      
-    }
+    },
+    {
+      path:'/chat',
+      name:'chat',
+      meta:{
+        title:'聊天'
+      },
+      component: chat, 
+      children:[
+        {
+          path:'/friendChat',
+          name:'friendChat',
+          meta:{
+            title:'好友聊天'
+          },
+          component: friendChat     
+        },  
+        {
+          path:'/collection',
+          name:'collection',
+          meta:{
+            title:'收藏'
+          },
+          component: collection     
+        },  
+        {
+          path:'/fileChat',
+          name:'fileChat',
+          meta:{
+            title:'文件'
+          },
+          component: fileChat     
+        },
+        {
+          path:'/groupChat',
+          name:'groupChat',
+          meta:{
+            title:'群聊'
+          },
+          component: groupChat     
+        },
+      ]      
+    },
     
     
   ]

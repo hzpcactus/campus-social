@@ -336,16 +336,15 @@ export default {
 			 load.close();
 			 if(res.data.status=="0"){
 				this.$message.success(res.data.msg);
-				var obj={};
-				obj.personApply=window.localStorage.getItem("personAccount");
-				obj.personAccept=item.person_account;
-				obj.sendmsg=value;
-				this.$socket.emit("sendmsg", obj);
-				// var chat = io.connect(`http://localhost:3000/dd`);
-				// chat.on('friendApply', function (data) {
-				// 	console.log(data);
-				// 	// chat.emit('hi!');
-				// });
+				let obj={
+				   from_person_id:window.localStorage.getItem("personAccount"),
+				   to_person_id:item.person_account,
+				   sendmsg:value
+				};
+				// obj.personApply=window.localStorage.getItem("personAccount");
+				// obj.personAccept=item.person_account;
+				// obj.sendmsg=value;
+				this.$socket.emit("sendFriendApply", obj);
 			 }else{
 				this.$message.error(res.data.msg);
 			 }

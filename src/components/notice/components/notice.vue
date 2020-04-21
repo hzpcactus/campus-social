@@ -76,6 +76,6 @@ export default {
   width: 100%;
   display: inline-block;
   margin: 0 auto;
-  background: rgba(221,240,248,0.5);
+  background: rgba(226,244,255,0.5);
 }
 </style>

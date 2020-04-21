@@ -16,14 +16,13 @@
 				<div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
 					<nav class="link-effect-2" id="link-effect-2">
 						<ul class="nav navbar-nav">
-							<li class="active"><router-link to="./" class="effect-3">首页</router-link></li>
-							<li><router-link to="blog" class="effect-3">查看好友列表</router-link></li>
-							<li>
+							<li :class="[clickItem=='首页'?'active':'']" @click="changeStyle('首页')"><router-link to="./" class="effect-3">首页</router-link></li>
+							<li :class="[clickItem=='聊天'?'active':'']"><a class="effect-3" @click="toChat">&nbsp;&nbsp;<el-badge :is-dot="isChat">聊天</el-badge>&nbsp;&nbsp;&nbsp;</a></li>
+							<li :class="[clickItem=='动态'?'active':'']" @click="changeStyle('动态')">
 							  <router-link to="blog" class="effect-3">&nbsp;&nbsp;<el-badge :value="9">动态</el-badge>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</router-link>
 							</li>
-							<li><a href="javascript:void(0);" class="effect-3" @click="upload()">上传</a></li>
-							<li><router-link to="notice" class="effect-3">&nbsp;&nbsp;<el-badge :value="16">通知</el-badge>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</router-link></li>
-							<li><router-link to="manager" class="effect-3">管理员权限</router-link></li>
+							<li :class="[clickItem=='通知'?'active':'']" @click="changeStyle('通知')"><router-link to="notice" class="effect-3">&nbsp;&nbsp;<el-badge :value="16">通知</el-badge>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</router-link></li>
+							<li :class="[clickItem=='管理员权限'?'active':'']" @click="changeStyle('管理员权限')"><router-link to="manager" class="effect-3">管理员权限</router-link></li>
 							<!-- <li class="dropdown">
 								<a href="#" class="dropdown-toggle effect-3" data-toggle="dropdown">操作 <b class="caret"></b></a>
 								<ul class="dropdown-menu agile_short_dropdown">
@@ -39,7 +38,7 @@
 								</div>
 							</li>
 							<!-- <li v-if="isUser"><router-link to="about" class="effect-3">{{userName}}</router-link></li> -->
-							<li v-else><router-link to="login" class="effect-3">登录</router-link></li>
+							<li :class="[clickItem=='登录'?'active':'']" @click="changeStyle('登录')" v-else><router-link to="login" class="effect-3">登录</router-link></li>
 						</ul>
 					</nav>
 				</div>
@@ -53,13 +52,21 @@
 <script> 
 
 export default {
+	props:{
+	  chatMsg:{
+		 type:Object,
+		 default:{}
+	  }
+	},
     data() {
         return {
 		  userName:"",
 		  password:"",
 		  isUser:false,
 		  imgUrl:"",
-		  isManager:false
+		  isManager:false,
+		  isChat:false,
+		  clickItem:"首页"
         };
     },
     created() {
@@ -93,6 +100,14 @@ export default {
 				 this.isManager=false;
 			 }
 		   })
+	   },
+	   toChat(){
+		   this.$router.push({name:'chat'});
+		   this.isChat = false;
+		   this.clickItem = '聊天';
+	   },
+	   changeStyle(item){
+		   this.clickItem = item;
 	   }
 	},
 	watch:{
@@ -108,6 +123,14 @@ export default {
 		
 		// this.isManager=this.userName?this.findManage():false;
 		console.log(this.isManager);
+	  },
+	  chatMsg(val){
+		  console.log(this.chatMsg,111);
+        if(JSON.stringify(this.chatMsg) == "{}"){    //没有信息
+           this.isChat = false;
+		}else{
+           this.isChat = true;
+		}
 	  }
 	}
 };
