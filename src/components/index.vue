@@ -4,11 +4,11 @@
 		<div class="slider">
 			<div class="wrapper">
 				<div class="agile_banner_text_info">
-					<h3>&nbsp;&nbsp;&nbsp;&nbsp;Make Friends </h3>
+					<h3>&nbsp;&nbsp;&nbsp;&nbsp;campus social</h3>
 					<p>用心创造快乐</p>
 					<div class="w3-button">
 						<div class="w3ls-button">
-							<a href="single.html" class="hvr-shutter-out-vertical">关于我们</a>
+							<a href="#footer" class="hvr-shutter-out-vertical">关于我们</a>
 						</div>
 						<div class="w3l-button">
 							<a href="#footer" class="hvr-shutter-out-vertical scroll ">联系我们</a>
@@ -70,14 +70,22 @@
 			<div class="col-md-4 agileits_banner_bottom_left">
 				<div class="agileinfo_banner_bottom_pos">
 					<div class="w3_agileits_banner_bottom_pos_grid">
-						<div class="col-xs-3 wthree_banner_bottom_grid_left">
-							<div class="agile_banner_bottom_grid_left_grid hvr-radial-out">
-								<span class="fa fa-laptop" aria-hidden="true"></span>
-							</div>
-						</div>
+						<p class="kebiao"></p>
 						<div class="col-xs-9 wthree_banner_bottom_grid_right">
-							<h4>见证奇迹的时刻</h4>
-							<p>如果有人关注你，太棒了！立马好只在被关注时发送通知。告白失败？十动然拒？这里绝不会发生！</p>
+							<h4>智能课表</h4>
+							<p>课表随时看当然不止是课表</p>
+						</div>
+						<div class="clearfix"> </div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4 agileits_banner_bottom_left">
+				<div class="agileinfo_banner_bottom_pos">
+					<div class="w3_agileits_banner_bottom_pos_grid">
+						<p class="shoyonggongju"></p>
+						<div class="col-xs-9 wthree_banner_bottom_grid_right" style="padding:10px 0;">
+							<h4>实用工具</h4>
+							<p>考试时间表、笔记、查成绩，更多实用功能等你去发现</p>
 	
 						</div>
 						<div class="clearfix"> </div>
@@ -87,32 +95,10 @@
 			<div class="col-md-4 agileits_banner_bottom_left">
 				<div class="agileinfo_banner_bottom_pos">
 					<div class="w3_agileits_banner_bottom_pos_grid">
-						<div class="col-xs-3 wthree_banner_bottom_grid_left">
-							<div class="agile_banner_bottom_grid_left_grid hvr-radial-out">
-								<span class="fa fa-pencil" aria-hidden="true"></span>
-							</div>
-						</div>
+						<p class="xiakeliao"></p>
 						<div class="col-xs-9 wthree_banner_bottom_grid_right">
-							<h4>我的人生，我的选择</h4>
-							<p>在立马好，只有关注的人才能聊天，永远不用担心收到陌生人的骚扰信息。就算事情发展得不顺利，也可以随时屏蔽或举报。</p>
-	
-						</div>
-						<div class="clearfix"> </div>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-4 agileits_banner_bottom_left">
-				<div class="agileinfo_banner_bottom_pos">
-					<div class="w3_agileits_banner_bottom_pos_grid">
-						<div class="col-xs-3 wthree_banner_bottom_grid_left">
-							<div class="agile_banner_bottom_grid_left_grid hvr-radial-out">
-								<span class="fa fa-mobile" aria-hidden="true"></span>
-							</div>
-						</div>
-						<div class="col-xs-9 wthree_banner_bottom_grid_right">
-							<h4>心动只有彼此知道</h4>
-							<p>我们贴心为你保护隐私。使用立马好时可以选择对联系人隐身，这样就不用担心和通讯录中的好友尴尬碰面。</p>
-	
+							<h4>下课聊</h4>
+							<p>热闹的大学生兴趣交友，帮你捕捉更多小伙伴</p>
 						</div>
 						<div class="clearfix"> </div>
 					</div>
@@ -453,9 +439,27 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style lang="less" scoped>
 .item {
   margin-top: 10px;
   margin-right: 40px;
+}
+.kebiao{
+	background: url(http://qiniu-web.super.cn/super/0302/statics/img/generated/icons-s27cd801c91.png) 0 -714px no-repeat;
+    width: 145px;
+    height: 115px;
+	display: block;
+}
+.shoyonggongju{
+	background: url(http://qiniu-web.super.cn/super/0302/statics/img/generated/icons-s27cd801c91.png) -357px -714px no-repeat;
+    width: 94px;
+    height: 115px;
+	display: block;
+}
+.xiakeliao{
+	background: url(http://qiniu-web.super.cn/super/0302/statics/img/generated/icons-s27cd801c91.png) -257px -714px no-repeat;
+    width: 75pt;
+    height: 115px;
+	display: block;
 }
 </style>

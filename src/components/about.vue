@@ -14,6 +14,7 @@
 			<ul class="w3_short">
 				<li><a href="index.html">主页</a><span>|</span></li>
 				<li>个人信息</li>
+			  <el-link style="float:right;" type="primary" :underline="false" icon="el-icon-school el-icon--right" @click="toSchool">校内服务</el-link>
 			</ul>
 		</div>
 	</div>
@@ -298,6 +299,9 @@ import {regionData} from 'element-china-area-data'
         this.$emit('personAccount', "");
         this.$router.push({path:"/"});
         this.$message.success("退出成功！");
+      },
+      toSchool(){
+        this.$router.push({path:"/school"});
       }
    }
  }

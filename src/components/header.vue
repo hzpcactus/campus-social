@@ -19,9 +19,9 @@
 							<li :class="[clickItem=='首页'?'active':'']" @click="changeStyle('首页')"><router-link to="./" class="effect-3">首页</router-link></li>
 							<li :class="[clickItem=='聊天'?'active':'']"><a class="effect-3" @click="toChat">&nbsp;&nbsp;<el-badge :is-dot="isChat">聊天</el-badge>&nbsp;&nbsp;&nbsp;</a></li>
 							<li :class="[clickItem=='动态'?'active':'']" @click="changeStyle('动态')">
-							  <router-link to="blog" class="effect-3">&nbsp;&nbsp;<el-badge :value="9">动态</el-badge>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</router-link>
+							  <router-link to="blog" class="effect-3">&nbsp;&nbsp;动态&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</router-link>
 							</li>
-							<li :class="[clickItem=='通知'?'active':'']" @click="changeStyle('通知')"><router-link to="notice" class="effect-3">&nbsp;&nbsp;<el-badge :value="16">通知</el-badge>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</router-link></li>
+							<li :class="[clickItem=='通知'?'active':'']" @click="changeStyle('通知')"><router-link to="notice" class="effect-3">&nbsp;&nbsp;通知&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</router-link></li>
 							<li :class="[clickItem=='管理员权限'?'active':'']" @click="changeStyle('管理员权限')"><router-link to="manager" class="effect-3">管理员权限</router-link></li>
 							<!-- <li class="dropdown">
 								<a href="#" class="dropdown-toggle effect-3" data-toggle="dropdown">操作 <b class="caret"></b></a>
@@ -88,6 +88,7 @@ export default {
     },
     methods: {
        toAbout(){
+		   this.clickItem="";
 		   this.$router.push({name:'about'});
 	   },
 	   findManage(){

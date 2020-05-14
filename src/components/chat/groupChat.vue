@@ -132,7 +132,7 @@
       </el-tabs>
     </div>
     <div style="clear:both;"></div>
-    <addGroup :dialogGroupVisible="dialogGroupVisible" @dialogGroupVisible="getDialogGroupVisible"></addGroup>
+    <addGroup :dialogGroupVisible="dialogGroupVisible" @getGroup="searchGroup" @dialogGroupVisible="getDialogGroupVisible"></addGroup>
   </div>
 </template>
 
@@ -155,6 +155,7 @@ export default {
       clickIndex:"",
       content:"",
       showEmoji:false,
+      getGroup:false,
       chatItem:{},
       chatList:[]
 
@@ -166,11 +167,20 @@ export default {
      this.imgUrl = window.localStorage.getItem("personPicture");
      this.getGroupList();
   },
-  watch:{},
+  watch:{
+    getGroup(val){
+      if(this.getGroup){
+        this.getGroupList();
+      }
+    }
+  },
   computed:{},
   methods:{
     addGroup(){
       this.dialogGroupVisible = true;
+    },
+    searchGroup(val){
+      this.getGroup = val;
     },
     getDialogGroupVisible(val){
       this.dialogGroupVisible = val;
@@ -199,6 +209,7 @@ export default {
         }).then(res=>{
             if(res.data.status=="0"){
               this.searchGroupList = res.data.msg;
+              this.getGroup = false;
             }else{
               this.$message.error(res.data.msg);
             }

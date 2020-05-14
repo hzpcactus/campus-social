@@ -22,6 +22,11 @@ import friendChat from  '@/components/chat/friendChat'
 import collection from  '@/components/chat/collection'  
 import fileChat from  '@/components/chat/fileChat'  
 import groupChat from  '@/components/chat/groupChat'  
+import school from '@/components/school/index'
+import examInfo from '@/components/school/components/examInfo'
+import examScore from '@/components/school/components/examScore'
+import schedule from '@/components/school/components/schedule'
+
 
 
 Vue.use(Router)
@@ -200,6 +205,40 @@ export default new Router({
           component: groupChat     
         },
       ]      
+    },
+    {
+      path:'/school',
+      name:'school',
+      meta:{
+        title:'校内服务'
+      },
+      component: school,
+      children:[ 
+        {
+          path:'/examInfo',
+          name:'examInfo',
+          meta:{
+            title:'考试信息'
+          },
+          component: examInfo     
+        }, 
+        {
+          path:'/examScore',
+          name:'examScore',
+          meta:{
+            title:'考试成绩'
+          },
+          component: examScore     
+        }, 
+        {
+          path:'/schedule',
+          name:'schedule',
+          meta:{
+            title:'课程表'
+          },
+          component: schedule     
+        },
+      ]       
     },
     
     

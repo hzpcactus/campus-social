@@ -119,6 +119,7 @@ export default {
                if(res.data.status=="0"){
                   this.$message.success(res.data.msg);
                   this.closedialog();
+                  this.$emit('getGroup',true);
                }else{
                   this.$message.error(res.data.msg);
                }

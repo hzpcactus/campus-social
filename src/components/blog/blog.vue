@@ -9,7 +9,7 @@
       </el-button>
      </el-tooltip> 
     </div>
-	<send-blog :dialogVisible="dialogVisible" :friendList="friendList" @dialogVisible="getDialogVisible"></send-blog>
+	<send-blog :dialogVisible="dialogVisible" :friendList="friendList" @getBlog="getSearchBlog" @dialogVisible="getDialogVisible"></send-blog>
 	
     <div class="main_section_agile inner" id="home" style="text-align:center;">
 	   <el-avatar class="avatar" :src="imgUrl"></el-avatar>
@@ -231,7 +231,17 @@
 										<img :src="item.person_picture" alt=" " class="img1-responsive" />
 									</div>
 									<div class="posts-grid-right w3-posts-grid-right">
-										<h4><a href="mail.html"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;{{item.person_account}}</a></h4>
+										<el-popover
+											placement="right-end"
+											width="200"
+											trigger="hover"
+										>
+										<p>删除该好友</p>
+										<div style="text-align: right; margin: 0">
+											<el-button type="primary" size="mini" @click="deleteFriend(item)">删除</el-button>
+										</div>
+										<h4 slot="reference"><a><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;{{item.person_account}}</a></h4>
+										</el-popover>
 										<ul class="wthree_blog_events_list">
 											<li :title="item.person_signature"><i class="el-icon-edit" aria-hidden="true"></i>{{item.person_signature.length>10?item.person_signature.substring(0,10)+"...":item.person_signature}}</li>
 											<!-- <li><i class="fa fa-user" aria-hidden="true"></i><a href="single.html">Admin</a></li> -->
@@ -241,7 +251,7 @@
 								</div>
 								<div v-show="!isShow" class="nofriends">
 									<i class="el-icon-user">暂无好友</i>
-								</div>
+								</div>								
 							</div>
 						</div>
 					</div>
@@ -273,7 +283,9 @@ export default {
 		  searchTableVisible:false,
 		  dialogVisible:false,
 		  dialogRemarkVisible:false,
+		  deleteVisible:false,
 		  isShow:false,
+		  getBlog:false,
 		  isHaveFriends:"display:flex;justify-content:center;height:480px;",
 		  findPerson:"",
 		  personAccount:"",
@@ -291,17 +303,18 @@ export default {
 	},
     created() {
 
-    },
+	},
+	watch:{
+      getBlog(val){
+        if(this.getBlog){
+          this.searchBlog();
+		}
+	  }
+	},
     mounted() {
 	  this.userName =  window.localStorage.getItem("personAccount");
 	  this.imgUrl =window.localStorage.getItem("personPicture");
-	  this.$axios.post("/friends/search",{personAccount:this.userName}).then(res=>{
-		  console.log(res.data);
-		  this.friendList=res.data.msg;
-		  this.searchFriendList=this.friendList;
-		  this.isShow=res.data.msg==null?false:true;
-		  this.isHaveFriends=this.isShow?"overflow:scroll;overflow-x: hidden;overflow-y: scroll;height:480px;":"display:flex;justify-content:center;height:480px;";
-	  });
+	  this.searchFriend();
       this.getTheme();
 	  this.searchBlog();
     },
@@ -310,6 +323,7 @@ export default {
         this.$axios.post("/blog/searchBlog",{personAccount:this.userName}).then(res=>{
 			// console.log(res);
 			this.blogList = res.data.msg;
+			this.getBlog = false;
 		});
 	  },
       popAddBox(){
@@ -405,6 +419,9 @@ export default {
 	  },
 	  getDialogVisible(val){
         this.dialogVisible = val;
+	  },
+	  getSearchBlog(val){
+        this.getBlog = val;
 	  },
 	  getDialogRemarkVisible(val){
         this.dialogRemarkVisible = val;
@@ -503,6 +520,28 @@ export default {
 			   this.$massage.error(res.data.msg);
 			 } 
 		  });
+	  },
+	  searchFriend(){
+        this.$axios.post("/friends/search",{personAccount:this.userName}).then(res=>{
+		  console.log(res.data);
+		  this.friendList=res.data.msg;
+		  this.searchFriendList=this.friendList;
+		  this.isShow=res.data.msg==null?false:true;
+		  this.isHaveFriends=this.isShow?"overflow:scroll;overflow-x: hidden;overflow-y: scroll;height:480px;":"display:flex;justify-content:center;height:480px;";
+	    });
+	  },
+	  deleteFriend(item){
+        this.$axios.post("/friends/deleteFriend",{
+			personAccount:this.userName,
+			deleteFriend:item.person_account
+		}).then(res=>{
+			if(res.data.status=="0"){
+			   this.$message.success(res.data.msg);
+			   this.searchFriend();
+			}else{
+               this.$message.error(res.data.msg);
+			}
+		});;
 	  }
     }
 };

@@ -217,7 +217,7 @@ export default {
            this.$message.success(res.data.msg);
            this.dialogVisible_ = false;
            this.content = "";
-           //this.$emit("getBlog",true);             // 刷新自己博客
+           this.$emit("getBlog",true);             // 刷新自己博客
          }else{
            this.$message.error(res.data.msg);
          }

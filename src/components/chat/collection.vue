@@ -8,7 +8,7 @@
               <span>发布者：</span><span style="color:#00b7f1;">{{item.collection_from_person_id}}</span>
               <el-tag
                 type="danger"
-                v-show="item.collection_from_group_name!=null"
+                v-show="item.collection_from_group_name!='null'&&item.collection_from_group_name!=null"
                 size="mini"
                 style="margin-left:10px;"
                 effect="plain">
