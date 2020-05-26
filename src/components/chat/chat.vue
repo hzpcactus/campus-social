@@ -79,7 +79,8 @@ export default {
 </script>
 <style lang="less" scoped>
 .main_section_agile.inner_height{
-   background: url(/static/img/banner2.8ec90fe.jpg)no-repeat 0px 0px;
+   background: url(../../assets/images/banner2.jpg)no-repeat 0px 0px;
+  //  background: url(/static/img/banner2.8ec90fe.jpg)no-repeat 0px 0px;
    background-size: cover;
    -webkit-background-size: cover;
    -moz-background-size: cover;

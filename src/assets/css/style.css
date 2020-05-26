@@ -2869,7 +2869,7 @@ ul.w3_short li {
     }
     .w3layouts_stats_left {
         text-align: center;
-        float: left;
+        /* float: left; */
         width: 25%;
         padding: 0;
     }
@@ -3395,7 +3395,7 @@ ul.w3_short li {
 
 @media(max-width:568px) {
     .w3layouts_stats_left {
-        float: left;
+        /* float: left; */
         width: 50%;
         padding: 0;
         margin-bottom: 2em;

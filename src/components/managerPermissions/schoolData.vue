@@ -130,6 +130,6 @@ export default {
   left: 50%;  /* 父盒子宽度的50% */
   top: 50%;   /* 父盒子高度的50% */
   transform: translate(-50%,-50%);    /* 子盒子自身宽高的50% */   
-  background: url(//s2.hdslb.com/bfs/static/blive/blfe-message-web/static/img/nodata.4d721f9d.png) center/contain no-repeat;
+  background: url(http://s2.hdslb.com/bfs/static/blive/blfe-message-web/static/img/nodata.4d721f9d.png) center/contain no-repeat;
 }
 </style>

@@ -78,7 +78,7 @@ export default {
   left: 50%;  /* 父盒子宽度的50% */
   top: 50%;   /* 父盒子高度的50% */
   transform: translate(-50%,-50%);    /* 子盒子自身宽高的50% */   
-  background: url(//s2.hdslb.com/bfs/static/blive/blfe-message-web/static/img/placeholder.6b466963.png) center/contain no-repeat;
+  background: url(http://s2.hdslb.com/bfs/static/blive/blfe-message-web/static/img/placeholder.6b466963.png) center/contain no-repeat;
 }
 .card{
   background: rgba(226,244,255,0.5);

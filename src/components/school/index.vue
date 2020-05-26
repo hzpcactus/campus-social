@@ -1,5 +1,5 @@
 <template>
-  <div style="background:url(//s2.hdslb.com/bfs/static/blive/blfe-message-web/static/img/infocenterbg.a1a0d152.jpg) top/cover no-repeat fixed ">
+  <div style="background:url(http://s2.hdslb.com/bfs/static/blive/blfe-message-web/static/img/infocenterbg.a1a0d152.jpg) top/cover no-repeat fixed ">
     <div class="main_section_agile inner" id="home" style="text-align:center;">
 	   <el-avatar class="avatar" :src="imgUrl"></el-avatar>
      <span style="color:white;font-weight:bold;font-size:35px;display:block;margin-top:25px;">{{userName}}</span>
