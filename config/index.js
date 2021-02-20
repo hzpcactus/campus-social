@@ -29,6 +29,9 @@ module.exports = {
       '/chat/*':{
         target:'http://localhost:3000'
       },
+      '/images/*':{
+        target:'http://localhost:3000'
+      },
       '/getClassSchedule':{
         target: 'http://ssfw2.hlju.edu.cn',
         changeOrigin: true,
