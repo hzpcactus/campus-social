@@ -16,8 +16,8 @@ export default {
   components:{},
   data(){
     return {
-      isHaveMsg:true,
-      messageList:[],
+      isHaveMsg: false,
+      messageList: [],
     }
   },
   created(){},
@@ -28,14 +28,19 @@ export default {
   computed:{},
   methods:{
     getNotice(){
-      this.$axios.post("/notice/systematicNotification",{noticeType:"notice",personAccount:window.localStorage.getItem("personAccount")}).then(res=>{
-        if(res.data.status=="1"){
-          this.$message.error(res.data.msg);
-        }else{
-          this.messageList=res.data.msg;
-          this.isHaveMsg=this.messageList.length>0?true:false;
-        }
-      });
+      if(window.localStorage.getItem("personAccount")) {
+        this.$axios.post("/notice/systematicNotification",{noticeType:"notice",personAccount:window.localStorage.getItem("personAccount")}).then(res=>{
+          if(res.data.status=="1"){
+            this.$message.error(res.data.msg);
+          }else{
+            this.messageList=res.data.msg;
+            this.isHaveMsg=this.messageList.length>0?true:false;
+          }
+        });
+      }else {
+        this.isHaveMsg = false;
+      }
+      
     },
     changeDate(date){
       let dateTime = new Date(new Date(date).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, ''));
@@ -70,8 +75,8 @@ export default {
   left: 50%;  /* 父盒子宽度的50% */
   top: 50%;   /* 父盒子高度的50% */
   transform: translate(-50%,-50%);    /* 子盒子自身宽高的50% */   
-  background:url(http://s1.hdslb.com/bfs/static/blive/live-web-center/static/img/2.273d197.png) no-repeat center top #fff;
-  // background: url(//s2.hdslb.com/bfs/static/blive/blfe-message-web/static/img/placeholder.6b466963.png) center/contain no-repeat;
+  // background:url(http://s1.hdslb.com/bfs/static/blive/live-web-center/static/img/2.273d197.png) no-repeat center top #fff;
+  background: url(//s2.hdslb.com/bfs/static/blive/blfe-message-web/static/img/placeholder.6b466963.png) center/contain no-repeat;
 }
 .card{
   width: 100%;
