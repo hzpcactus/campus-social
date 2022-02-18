@@ -1,4 +1,4 @@
-# campus-social(PC端)
+# 校园社交网站(PC端)
 
 ## 项目介绍
 校园社交网站是一个前后端分离的项目，项目采用Vue+Node+Mysql，elementUI组件库开发。
